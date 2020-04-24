@@ -7,6 +7,7 @@ const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 4242;
+const bookRouter = express.Router();
 
 app.use(morgan('tiny'));
 
@@ -25,11 +26,47 @@ app.use(
 );
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
+const books = [
+  {
+    title: 'book1',
+    genre: 'art',
+    author: 'author1',
+    read: false
+  },
+  {
+    title: 'book2',
+    genre: 'art',
+    author: 'author2',
+    read: false
+  },
+  {
+    title: 'book3',
+    genre: 'art',
+    author: 'author3',
+    read: false
+  },
+  {
+    title: 'book4',
+    genre: 'art',
+    author: 'author4',
+    read: false
+  }
+];
+
+bookRouter.route('/')
+  .get((req, res) => {
+    res.render('books', {
+      nav: [{ link: '/books', title: 'Books' }, { link: '/authors', title: 'Authors' }],
+      title: 'Library',
+      books
+    });
+  });
+app.use('/books', bookRouter);
 app.get('/', (req, res) => {
   res.render(
     'index',
     {
-      nav: ['Books', 'Authors'],
+      nav: [{ link: '/books', title: 'Books' }, { link: '/authors', title: 'Authors' }],
       title: 'Library'
     }
   );
