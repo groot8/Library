@@ -7,7 +7,7 @@ const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 4242;
-const bookRouter = require('./src/routes/BookRoutes');
+const bookRouter = require('./src/routes/bookRoutes');
 
 app.use(morgan('tiny'));
 
